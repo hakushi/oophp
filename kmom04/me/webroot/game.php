@@ -24,17 +24,10 @@ $_SESSION['search'] = $search;
 $gameForm = $CSearch->GenerateForm();
 
 
-$_SESSION['query_string_no_order'] =
-    $CSearch->queryStripOrder($search);
-
-$_SESSION['query_string_no_genre'] = 
-    $CSearch->queryStripGenre($search);
-
-$_SESSION['query_string_no_limit'] =
-    $CSearch->queryStripLimit($search);
-
-$_SESSION['query_string_no_pagination'] =
-    $CSearch->queryStripPage($search);
+$_SESSION['query_string_no_order'] = $CSearch->queryStrip($search, 'order');
+$_SESSION['query_string_no_genre'] = $CSearch->queryStrip($search, 'genre');
+$_SESSION['query_string_no_limit'] = $CSearch->queryStrip($search, 'limit');
+$_SESSION['query_string_no_pagination'] = $CSearch->queryStrip($search, 'page');
 
 $sqlQuery = $CSearch->filterResults($search);
 

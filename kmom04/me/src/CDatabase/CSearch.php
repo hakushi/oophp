@@ -8,6 +8,7 @@ class CSearch
     {
     }
     public function filterResults(){
+
         $search = $_SESSION['search'];
         $sql[] = "SELECT * FROM `{$_SESSION['db']}`";
         $sql[] = (empty($search['genre'])) ? "" : "`genre` = '{$search['genre']}'";
@@ -28,7 +29,7 @@ class CSearch
             empty($search['order_by']) ||
             empty($search['order'])) ? "" : " ORDER BY {$search['order_by']} ". strtoupper($search['order']);
 
-        // $query .= (empty($search['limit'])) ? "" : " LIMIT {$search['limit']}";
+        //$query .= (empty($search['limit'])) ? "" : " LIMIT {$search['limit']}";
 
         $_SESSION['query'] = $query;
 
@@ -42,7 +43,7 @@ class CSearch
         $yearTo     = (isset($_GET['to'])) ? $_GET['to'] : '';
         $orderBy    = (isset($_GET['order_by'])) ? $_GET['order_by'] : '';
         $order      = (isset($_GET['order'])) ? $_GET['order'] : '';
-
+        
         $query = $_SESSION['query_string_no_genre'];
         $form = "
             <form method='<get' action=''>
@@ -114,7 +115,6 @@ class CSearch
         $limit = (isset($_GET['limit'])) ? $_GET['limit'] : '';
         $page = (isset($_GET['p'])) ? $_GET['p'] : '';
 
-
         $search = [
             'title'     => $title,
             'genre'     => $genre,
@@ -128,29 +128,26 @@ class CSearch
         return $search;
     }
 
-    public function queryStripOrder($search)
+    public function queryStrip($search, $value)
     {
-        unset($search['order_by']);
-        unset($search['order']);
-        return http_build_query($search, '', '&amp;');
-    }
+        switch ($value) {
 
-    public function queryStripGenre($search)
-    {
-        unset($search['genre']);
-        return http_build_query($search, '', '&amp;');
-    }
+            case 'order' :
+                unset($search['order_by']);
+                unset($search['order']);
+                return http_build_query($search, '', '&amp;');
+            
+            case 'genre' :
+                unset($search['genre']);
+                return http_build_query($search, '', '&amp;');
 
-    public function queryStripLimit($search)
-    {
-        unset($search['limit']);
-        return http_build_query($search, '', '&amp;');
+            case 'limit' :
+                unset($search['limit']);
+                return http_build_query($search, '', '&amp;');
+            
+            case 'page' :
+                unset($search['page']);
+                return http_build_query($search, '', '&amp;');
+        }
     }
-
-    public function queryStripPage($search)
-    {
-        unset($search['page']);
-        return http_build_query($search, '', '&amp;');
-    }
-
 }
