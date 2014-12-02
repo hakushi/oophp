@@ -1,0 +1,164 @@
+.calendar_table{
+	background-color:#171717;
+	padding:0.5 0 0.5em 0;
+	width:100%;
+	border:0;
+}
+
+.calendar_table th {
+	padding:0.2em 0;
+	text-align:center;
+
+}
+
+.calendar_table td {
+	width:100px;
+	vertical-align: top;
+	height:100px;
+	padding:2px;
+	border:1px solid #fff;
+	width:200px!important;
+	text-align: center
+}
+
+tr.subheader th {
+	background-color: #007ACC;
+	border:1px solid #fff;
+}
+
+tr.subheader th.week {
+	color:#fff;
+	background-color:#171717;
+	border:1px solid #171717;
+	margin:0;
+	font-size: 0.8em;
+	font-weight:100;
+}
+
+.red_day .day_number{
+	color:#c00;
+}
+
+.calendar_image {
+	width:100%;
+}
+
+.calendar_header {
+	font-weight: 700;
+	width:100%;
+	text-align:center;
+	font-size: 2em;
+	/*padding:0.6em 0;*/
+	background-color:#171717;
+}
+
+td.week_td {
+	vertical-align: top;
+	border: 1px solid #171717;
+	color: #fff;
+	font-size:0.8em;
+	font-weight:700;
+	background-color: #171717;
+	padding:0;
+	margin:0;
+}
+td.prev_or_next_month_td {
+	color:#474747;
+	border: 1px solid #676767;
+}
+.day_number {
+	font-weight:700;
+	font-size:1.2em;
+	float:right;
+}
+.day_name {
+	font-size:0.8em;
+	font-weight:500;
+	text-align:center;
+	display: inline-block;
+	width:100%;
+}
+
+.flag , .holiday, .name{
+	display: inline-block;
+	font-size:0.6em;
+	text-align: center
+}
+
+.name {
+	font-style: italic;
+	padding:0;
+	margin:0 2px 0 0;
+
+} 
+
+.moon_icon {
+	width:20px;
+	height:20px;
+	float:left;
+
+}
+.flag_icon {
+	float:left;
+	padding:2px;
+}
+.calendar_wrapper{
+	border:0;
+	margin:0;
+	padding:0;
+	width:100%;
+}
+.nav_left, .nav_right {
+	background-color: #171717;
+	color:#fff;
+	font-size:2em;
+	padding:0.4em;
+	font-weight:700;
+}
+
+
+.nav_left:hover, .nav_right:hover{
+  background-color:#FF4D4D;
+  cursor:pointer;
+}
+.nav_left a, .nav_right a {
+	text-decoration: none;
+	color:#fff;
+	display:inline-block;
+	padding:8em 0;
+	height:100%;	
+}
+
+#tiny_cal {
+	width:250px;
+	position:absolute;
+	position:fixed;
+	top:90px;
+	left:0px;
+	padding:10px 0 20px 0;
+	background-color:#171717;
+}
+#tiny_cal td {
+	height:30px;
+	font-size:0.8em;
+	font-weight: 100;
+	color:#fff;
+}
+#tiny_cal .calendar_table th {
+	text-align:left;
+}
+#tiny_cal tr {
+	font-size:1em;
+}
+#tiny_cal td.week_td {
+	vertical-align: middle;
+}
+#tiny_cal td .prev_or_next_month_td {
+	color:#474747;
+	border: 1px solid #676767;
+}
+@media (max-width: 1220px) {
+    #tiny_cal {
+		display: none;
+    }
+}

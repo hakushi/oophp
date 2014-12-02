@@ -1,0 +1,184 @@
+-- Övning 01: skapa en databas
+
+-- Skapa databas
+CREATE DATABASE Skolan;
+ 
+-- Välj vilken databas du vill använda
+USE Skolan;
+
+-- Radera en databas
+DROP DATABASE Skolan;
+
+-- Skapa tabell Lärare
+
+CREATE TABLE Larare
+(
+akronym CHAR(3) PRIMARY KEY,
+avdelning CHAR(3),
+namn CHAR(20),
+lon INT,
+fodd DATETIME
+);
+
+--
+-- Lägg till rader i tabellen Lärare
+--
+INSERT INTO Larare VALUES ('MOS', 'APS', 'Mikael',   15000, '1968-03-07');
+INSERT INTO Larare VALUES ('MOL', 'AIS', 'Mats-Ola', 15000, '1978-12-07');
+INSERT INTO Larare VALUES ('BBE', 'APS', 'Betty',    15000, '1968-07-07');
+INSERT INTO Larare VALUES ('AJA', 'APS', 'Andreas',  15000, '1988-08-07');
+INSERT INTO Larare VALUES ('CJH', 'APS', 'Conny',    15000, '1943-01-07');
+INSERT INTO Larare VALUES ('CSA', 'APS', 'Charlie',  15000, '1969-04-07');
+INSERT INTO Larare VALUES ('BHR', 'AIS', 'Birgitta', 15000, '1964-02-07');
+INSERT INTO Larare VALUES ('MAP', 'APS', 'Marie',    15000, '1972-06-07');
+INSERT INTO Larare VALUES ('LRA', 'APS', 'Linda',    15000, '1975-03-07');
+INSERT INTO Larare VALUES ('ACA', 'APS', 'Anders',   15000, '1967-09-07');
+
+-- Ändra befintlig tabell
+ALTER TABLE Larare ADD COLUMN kompetens INT;
+-- radera kolumnen
+ALTER TABLE Larare DROP COLUMN kompetens;
+
+ALTER TABLE Larare ADD COLUMN kompetens INT;
+
+-- Övning 6
+-- Ändringar 
+ALTER TABLE Larare
+ADD COLUMN kompetens INT NOT NULL
+DEFAULT 5;
+
+
+--övning 7
+UPDATE Larare SET kompetens = 7 AND lon = 21000 where namn = 'Mikael';
+
+UPDATE Larare SET lon = lon+6000 where namn = 'Mats-Ola';
+
+UPDATE Larare SET kompetens = 9, lon = 21000 where namn='Betty';
+
+UPDATE Larare SET lon = lon-1200 where namn='Andreas';
+
+UPDATE Larare SET lon = lon*1.1;
+
+-- övning 8
+
+SELECT * FROM Larare WHERE avdelning = 'AIS';
+SELECT * FROM Larare WHERE akronym LIKE 'M%';
+SELECT * FROM Larare WHERE namn LIKE '%o%';
+SELECT * FROM Larare WHERE lon > 20000;
+SELECT * FROM Larare WHERE lon >= 20000 && kompetens > 5;
+SELECT * FROM Larare where akronym IN ('MOS','MOL','BBE');
+
+SELECT namn, lon FROM Larare;
+SELECT namn, lon FROM Larare ORDER BY namn ASC;
+SELECT namn, lon FROM Larare ORDER BY namn DESC;
+SELECT namn, lon FROM Larare ORDER BY lon ASC;
+SELECT namn, lon FROM Larare ORDER BY lon DESC;
+SELECT namn, lon FROM Larare ORDER BY lon DESC LIMIT 3;
+
+SELECT
+ namn AS 'Lärare',
+ avdelning AS 'Avdelning',
+ lon AS 'Lön'
+FROM Larare;
+
+-- övning 9
+
+SELECT MAX(lon) from Larare;
+SELECT MIN(lon) from Larare;
+
+SELECT avdelning, COUNT(*) FROM Larare GROUP BY avdelning;
+
+SELECT avdelning, SUM(lon) FROM Larare GROUP BY avdelning;
+
+SELECT avdelning, AVG(lon) FROM Larare GROUP BY avdelning;
+
+SELECT avdelning, AVG(lon) AS Medellon
+FROM Larare
+GROUP BY avdelning
+HAVING AVG(lon) > 18000
+
+SELECT lon, COUNT(lon) AS Antal
+FROM Larare
+GROUP BY lon
+HAVING COUNT(lon) > 1
+
+-- ÖVNING 10
+
+SELECT CONCAT(avdelning, '/', akronym) AS Larare FROM Larare;
+
+SELECT LOWER(CONCAT(avdelning, '/', akronym)) AS Larare FROM Larare;
+
+SELECT CURDATE();
+
+SELECT namn AS Lärare, DATE_FORMAT(fodd, "%Y") AS Födeår, NOW() AS Dagens_datum FROM Larare;
+
+SELECT namn AS Lärare, DATE_FORMAT(NOW(), "%Y") - DATE_FORMAT(fodd, "%Y") AS Ålder FROM Larare ORDER BY Ålder DESC;
+
+-- övning 11
+
+CREATE VIEW VLarare AS
+SELECT namn AS Lärare,
+DATE_FORMAT(NOW(), "%Y") - DATE_FORMAT(fodd, "%Y") AS Ålder
+FROM Larare ORDER BY Ålder DESC;
+
+SELECT AVG(Ålder) FROM VLarare;
+
+
+CREATE VIEW VLarare2 AS
+SELECT *,
+DATE_FORMAT(NOW(), "%Y") - DATE_FORMAT(fodd, "%Y") AS Ålder
+FROM Larare ORDER BY Ålder DESC;
+
+SELECT avdelning, AVG(Ålder) AS Medelålder FROM VLarare2 GROUP BY avdelning;
+
+SELECT avdelning, AVG(Ålder) AS Medelålder, AVG(lon) AS Medellön FROM VLarare2 GROUP BY avdelning;
+
+SELECT avdelning, 
+ROUND(AVG(Ålder)) ASvMedelålder, 
+ROUND(AVG(lon)) AS Medellön 
+FROM VLarare2 GROUP BY avdelning;
+
+CREATE VIEW AvdelningsRapport AS
+SELECT avdelning, 
+ROUND(AVG(Ålder)) AS Medelålder, 
+ROUND(AVG(lon)) AS Medellön 
+FROM VLarare2 GROUP BY avdelning;
+
+-- övning 12
+
+
+
+SELECT kod, vkurstillfallen.namn, lasperiod, vlarare2.namn from vkurstillfallen, vlarare2
+WHERE vkurstillfallen.kurstillfalle_akronym = vlarare2.akronym;
+
+--övning 13
+
+select AVG(vlarare2.ålder) from vkurstillfallen
+INNER JOIN vlarare2
+ON vlarare2.akronym = vkurstillfallen.kurstillfalle_akronym;
+
+select AVG(vlarare2.ålder) from vkurstillfallen
+INNER JOIN vlarare2
+ON vlarare2.akronym = vkurstillfallen.kurstillfalle_akronym
+WHERE kurstillfalle_kod = 'PA1106'
+
+select AVG(vlarare2.lon) from vkurstillfallen
+INNER JOIN vlarare2
+ON vlarare2.akronym = vkurstillfallen.kurstillfalle_akronym
+WHERE kurstillfalle_kod LIKE 'PA%'
+
+-- övn 14
+select * from vakronymantal where antal = (SELECT MAX(antal) from vakronymantal);
+
+select * from vakronymantal where antal = (SELECT MIN(antal) from vakronymantal) LIMIT 1;
+
+--övn 15
+
+SELECT
+kurs.kod AS kurskod,
+kurs.namn AS kursnamn,
+kurstillfalle.lasperiod as läsperiod
+FROM kurstillfalle
+RIGHT OUTER JOIN kurs
+ON kurstillfalle.kurstillfalle_kod = kurs.kod;
+

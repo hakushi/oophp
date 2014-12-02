@@ -1,0 +1,53 @@
+body{
+  color:#696969;
+  font-family: 'helvetica';
+  text-align:center;
+  background-color:#fff;
+}
+
+h1{
+  font-size:2em;
+}
+
+p{
+  font-size:1em;
+}
+
+#wrapper{
+  width:980px;
+  margin:auto;
+  text-align:left;
+}
+
+#header{
+  margin:auto;
+  text-align:center;
+}
+#main{
+  text-align:center;
+}
+
+#footer{
+  font-size:0.8em;
+  color:#555;
+  font-style:italic;
+  text-align:center;
+}
+
+.sitetitle{
+  font-size:3em;
+  color:#900;
+  font-family: helvetica;
+  font-weight:700;
+}
+.siteslogan{
+  font-size:1em;
+  color:#696969;
+  font-family:helvetica;
+  font-weight:100;
+  font-style: italic
+}
+
+.right{
+  float:right;
+}

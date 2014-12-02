@@ -1,0 +1,1 @@
+Tard - A boilerplate/framework made by David Esdtröm for a course in object oriented PHP at Blekinge Tekniska Högskola.

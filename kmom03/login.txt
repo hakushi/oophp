@@ -1,0 +1,19 @@
+SSH till studentservern från console
+----------------
+ssh daed14@ssh.student.bth.se
+i6fF#svS
+
+
+mysql från SSH-anslutning
+---------------
+mysql -hblu-ray.student.bth.se -p
+0sU#,l7V
+
+
+öppna mysql från console
+----------------------
+mysql\bin\mysql.exe --user=root --password=
+
+SQL referensmanual
+---------
+http://dev.mysql.com/doc/refman/5.6/en/sql-syntax.html 
