@@ -5,9 +5,9 @@ include(__DIR__.'/config.php');
 
 $settings = [
     'host'     => 'localhost',
-    'db'       => 'game',
-    'login'    => 'root',
-    'password' => '',
+    'db'       => 'oophp',
+    'login'    => 'homestead',
+    'password' => 'secret',
     'options'  => array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'")
 ];
 
@@ -16,7 +16,7 @@ $CGameDatabase = new CDatabase($settings);
 $CHTMLTable = new CHTMLTable($settings);
 $CSearch = new CSearch();
 
-
+$dbTable = 'Game';
 $CGameDatabase->ConnectToDatabase();
 
 $search = $CSearch->getQuery();
@@ -29,9 +29,10 @@ $_SESSION['query_string_no_genre'] = $CSearch->queryStrip($search, 'genre');
 $_SESSION['query_string_no_limit'] = $CSearch->queryStrip($search, 'limit');
 $_SESSION['query_string_no_pagination'] = $CSearch->queryStrip($search, 'page');
 
-$sqlQuery = $CSearch->filterResults($search);
 
-$sqlQuery = $CSearch->filterResults($search);
+$sqlQuery = $CSearch->filterResults($search, $dbTable);
+
+$sqlQuery = $CSearch->filterResults($search, $dbTable);
 
 $games = $CGameDatabase->executeSQLQuery($sqlQuery);
 $gameTable = $CHTMLTable->generateGameTable($games);

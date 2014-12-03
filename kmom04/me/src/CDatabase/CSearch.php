@@ -7,10 +7,9 @@ class CSearch
     function __construct()
     {
     }
-    public function filterResults(){
+    public function filterResults($search, $table){
 
-        $search = $_SESSION['search'];
-        $sql[] = "SELECT * FROM `{$_SESSION['db']}`";
+        $sql[] = "SELECT * FROM `{$table}`";
         $sql[] = (empty($search['genre'])) ? "" : "`genre` = '{$search['genre']}'";
         $sql[] = (empty($search['title'])) ? "" : "`title` LIKE '%{$search['title']}%'";
         $sql[] = (empty($search['from']) || empty($search['to'])) ? "" : "`year` BETWEEN {$search['from']} AND {$search['to']}";
