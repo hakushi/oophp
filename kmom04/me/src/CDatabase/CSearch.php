@@ -43,7 +43,7 @@ class CSearch
         $yearTo     = (isset($_GET['to'])) ? $_GET['to'] : '';
         $orderBy    = (isset($_GET['order_by'])) ? $_GET['order_by'] : '';
         $order      = (isset($_GET['order'])) ? $_GET['order'] : '';
-        
+
         $query = $_SESSION['query_string_no_genre'];
         $form = "
             <form method='<get' action=''>
@@ -112,7 +112,7 @@ class CSearch
         $to = (isset($_GET['to'])) ? $_GET['to'] : '';
         $order_by = (isset($_GET['order_by'])) ? $_GET['order_by'] : '';
         $order = (isset($_GET['order'])) ? $_GET['order'] : '';
-        $limit = (isset($_GET['limit'])) ? $_GET['limit'] : '';
+        $limit = (isset($_GET['limit'])) ? $_GET['limit'] : '2';
         $page = (isset($_GET['p'])) ? $_GET['p'] : '';
 
         $search = [
