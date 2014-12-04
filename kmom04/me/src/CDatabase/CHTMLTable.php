@@ -49,7 +49,7 @@ class CHTMLTable
 
         $gameTable .= "</tr>";
         $row_count = count($games);
-        $limit =  (isset($_GET['limit'])) ? $_GET['limit'] : 'null';
+        $limit =  (isset($_GET['limit']) && $_GET['limit'] != '') ? $_GET['limit'] : '2';
         $page =  (isset($_GET['p'])) ? $_GET['p'] : '1';
 
         $i = 0;
@@ -66,9 +66,8 @@ class CHTMLTable
             ];
             $i++;
         }
-
         for ($i=0;$i<$limit;$i++) {
-        $index = ($page == 1) ? $i : $i+(($page-1)*$limit);//+$limit*$page-$limit;
+        $index = ($page == 1) ? $i : $i+(($page-1)*$limit);
         if($index >= $row_count) {
             break;
         }
@@ -90,17 +89,15 @@ class CHTMLTable
         }
 
         $gameTable .= "</table>";
-       
         return $gameTable;
        
         }
 
-    
-
     public function getRowNav($rows)
     {
         $nav = "$rows resultat. Antal rader per sida:";
-        $nav .= (isset($_GET['limit']) && $_GET['limit'] == 2) ? " 2" :
+        $nav .= ((isset($_GET['limit']) && $_GET['limit'] == 2)
+                || isset($_GET['show_all']) || $_GET['limit'] == '') ? " 2" :
                 " <a href=?{$_SESSION['query_string_no_limit']}&limit=2>2</a>";
         $nav .= (isset($_GET['limit']) && $_GET['limit'] == 4) ? " 4" :
                 " <a href=?{$_SESSION['query_string_no_limit']}&limit=4>4</a>";
@@ -111,24 +108,25 @@ class CHTMLTable
 
     public function getPagination($rows)
     {
-        if (!isset($_GET['limit'])) {
-            $pag = "";
+        if (!isset($_GET['limit']) || $_GET['limit'] == '') {
+            $limit = 2;
         } else {
-
             $limit = $_GET['limit'];
-            $currentPage = (isset($_GET['p'])) ? $_GET['p'] : 1;
-            $pageCount = $rows/$limit;
-            $pag = "Sida: ";
-            
-            for ($i = 1; $i < $pageCount+1; $i++) {
-                $pag .= ($currentPage == $i) ? " $i " :
-                "<a href=?{$_SESSION['query_string_no_pagination']}&p=$i>$i</a> ";
-            }
-            
-            if ($rows <= $limit) {
-                $pag = "";
-            }
         }
+        
+        $currentPage = (isset($_GET['p'])) ? $_GET['p'] : 1;
+        $pageCount = $rows/$limit;
+        $pag = "Sida: ";
+        
+        for ($i = 1; $i < $pageCount+1; $i++) {
+            $pag .= ($currentPage == $i) ? " $i " :
+            "<a href=?{$_SESSION['query_string_no_pagination']}&p=$i>$i</a> ";
+        }
+        
+        if ($rows <= $limit) {
+            $pag = "";
+        }
+        
         return $pag;
     }
 }
