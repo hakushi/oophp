@@ -12,8 +12,8 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
     $settings = [
         'host'     => 'localhost',
         'db'       => 'oophp',
-        'login'    => 'root',
-        'password' => '',
+        'login'    => 'homestead',
+        'password' => 'secret',
         'options'  => array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'")
     ];
     

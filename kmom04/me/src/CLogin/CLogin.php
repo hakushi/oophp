@@ -21,11 +21,15 @@ class CLogin
                  . $this->username ."'";
 
         $user = $this->database->executeSQLQuery($query);
+
+        if (empty($user)) {
+            return false;
+        }
+
         $user = $user[0];
 
         if ($user->password == md5($this->password . $user->salt))
             return $user;
-        return false;
     }
 
 }
