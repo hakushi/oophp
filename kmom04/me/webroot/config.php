@@ -24,8 +24,32 @@ include(TARD_INSTALL_PATH . '/src/bootstrap.php');
 session_name(preg_replace('/[^a-z\d]/i', '', __DIR__));
 session_start();
 
-//Database settings
+/**
+ * Database settings for Homestead
+ */
 
+$settings = [
+    'host'     => 'localhost',
+    'db'       => 'oophp',
+    'login'    => 'homestead',
+    'password' => 'secret',
+    'options'  => array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'")
+];
+
+/**
+ * Database settings for live database
+ */
+
+//    $settings = [
+//        'host'     => 'localhost',
+//        'db'       => 'oophp',
+//        'login'    => 'homestead',
+//        'password' => 'secret',
+//        'options'  => array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'UTF8'")
+//    ];
+
+$CDatabase = new CDatabase($settings);
+$CDatabase->connectToDatabase();
 
 //set the $tard array
 $tard = array();
@@ -47,7 +71,6 @@ if (isset ($_GET['y']) && isset($_GET['m'])) {
     $month = date('m');
 }
 $tard['header'] .= "<div id='tiny_cal'>".$Calendar->printTinyCalendar($month, $year)."</div>";
-
 
 $tard['footer'] = <<<EOD
 <footer><span class='sitefooter'>Copyright <i class="fa fa-copyright"></i> David Edström 2014 | 

@@ -17,8 +17,10 @@
     	<?=$header?>
 	</div>
     <div id='main'>
-    	<?php if(isset($menu)): echo CNavigation::GenerateMenu($menu, 'navbar'); endif; ?> 
-    	<?=$main?>
+    	<?php if(isset($menu)): echo CNavigation::GenerateMenu($menu, 'navbar'); endif; ?>
+        <?=print_login_status()?>
+        <?=$main?>
+
     </div>
     <div id='footer'>
     	<?=$footer?>

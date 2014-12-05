@@ -133,7 +133,7 @@ a .fa{
   color:#007ACC;
 }
 a:hover .fa{
-  color:#FF4D4D;
+  color: #FF4D4D;
 }
 
 .img_small{
@@ -160,4 +160,21 @@ a:hover .fa{
   width:100%;
   text-align:left;
 
+}
+
+.header_username {
+    color:#ffffff;
+    font-size:0.9em;
+    text-align:right;
+    position:absolute;
+    z-index:3;
+    width:700px;
+    margin: 0 auto;
+    padding-top:10px;
+    display: block;
+    top:5px;
+}
+
+.header_username .username {
+    color: #FF4D4D;
 }

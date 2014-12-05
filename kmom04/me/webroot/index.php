@@ -8,6 +8,7 @@ $tard['title'] = "Me!";
 //Uncomment to include navigation header
 include(__DIR__.'/navigation.php');
 
+
 $tard['main'] = <<< EOD
 <article>
 	<div class="img_wrapper left img_small">
@@ -29,5 +30,7 @@ $tard['main'] = <<< EOD
 	</p>
 	<p><em>/David</em></p>
 </article>
+
 EOD;
+
 include(TARD_THEME_PATH);

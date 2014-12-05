@@ -1,5 +1,5 @@
 <?php
-//use CDatabase;
+use CDatabase;
 
 class CLogin
 {
@@ -8,7 +8,7 @@ class CLogin
     private $password;
     private $database;
 
-    function __construct($username, $password, $database) {
+    function __construct($username, $password, CDatabase $database) {
         $this->username = $username;
         $this->password = $password;
         $this->database = $database;
@@ -17,7 +17,7 @@ class CLogin
     public function login()
     {
 
-        $query = "SELECT name, password, salt FROM user WHERE name = '"
+        $query = "SELECT name, password, salt FROM User WHERE name = '"
                  . $this->username ."'";
 
         $user = $this->database->executeSQLQuery($query);
@@ -28,8 +28,8 @@ class CLogin
 
         $user = $user[0];
 
-        if ($user->password == md5($this->password . $user->salt))
+        if ($user->password == md5($this->password . $user->salt)) {
             return $user;
+        }
     }
-
 }

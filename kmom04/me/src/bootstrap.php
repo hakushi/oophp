@@ -47,4 +47,11 @@ function getCurrentUrl()
     $url .= $_SERVER["SERVER_NAME"] . $serverPort . htmlspecialchars($_SERVER["REQUEST_URI"]);
     return $url;
 }
- 
+
+function print_login_status() {
+    if (isset($_SESSION['user'])) {
+        return  "<span class='header_username'>Inloggad som: <span class='username'>" . $_SESSION['user'] . "</span></span>";
+    } else {
+        return "<span class='header_username'>Du är inte inloggad</span>";
+    }
+}

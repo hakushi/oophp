@@ -36,3 +36,19 @@ $menu = [
         ]
     ]
 ];
+
+if (!isset($_SESSION['user'])) {
+    $menu['items']['login'] =
+        [
+            'text' => 'Logga in',
+            'url' => 'login.php',
+            'class' => null
+        ];
+} else {
+    $menu['items']['logout'] =
+         [
+            'text'  => 'Logga ut',
+            'url'   => 'logout.php',
+            'class' => null
+        ];
+}
